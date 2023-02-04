@@ -1,0 +1,19 @@
+#scan-reader {
+    width: 80vw !important;
+    max-width: 500px !important;
+    margin: 0 auto;
+}
+#scan-reader__scan-region img{
+    margin: 0 auto !important;
+}
+#html5-qrcode-anchor-scan-type-change{
+    display: none !important;
+}
+
+.html5-qrcode-element{
+    text-transform: uppercase !important;
+    background-color: transparent !important;
+}
+#html5-qrcode-input-range-zoom{
+    background: transparent !important;
+}

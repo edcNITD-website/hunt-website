@@ -1,0 +1,14 @@
+.animation{
+    height: 100vh;
+    position: relative;
+    /* background-size: cover; */
+    animation: move 3s linear infinite;
+}
+@keyframes move {
+    0%{
+        background-position: 50% 0%;
+    }
+    100%{
+        background-position: 50% -100vh;
+    }
+}

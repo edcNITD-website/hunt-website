@@ -1,0 +1,71 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load socialaccount %}
+{% block title %}
+The Hunt
+{% endblock %}
+{% block head %}
+<!-- CSS files -->
+<link rel="stylesheet" href="{% static 'base/css/home.css' %}">
+{% endblock %}
+{% block content %}
+<header style="background-image: linear-gradient(90deg, rgba(173, 23, 249, 0.398), rgba(26, 69, 245, 0.481)), url('{% static 'base/images/edc-arrow.svg' %}');" class="w-full min-h-screen animation grid place-items-center">
+    <div class="grid lg:grid-cols-2 place-items-center my-auto container mx-auto">
+        <div class="grid grid-cols-1 mx-auto">
+            <div class="w-fit">
+                <h1 class="text-5xl text-center lg:text-[140px] font-bold uppercase text-transparent bg-clip-text bg-gradient-to-br from-zinc-50 to-amber-400">The Hunt Begins in</h1>
+            </div>
+            <div class="grid grid-cols-2 lg:grid-cols-3 list-none text-center gap-2">
+                <li class="uppercase text-lg"><span id="days" class="text-xl lg:text-5xl font-bold">34</span>Days</li>
+                <li class="uppercase text-lg"><span id="days" class="text-xl lg:text-5xl font-bold">34</span>Hours</li>
+                <li class="uppercase text-lg col-span-2 lg:col-span-1"><span id="days" class="text-xl lg:text-5xl font-bold">34</span>Minutes</li>
+                <!-- <li class="uppercase text-lg"><span id="days" class="text-5xl font-bold">34</span>Seconds</li> -->
+            </div>
+        </div>
+        <div class="lg:border-l-8 lg:border-zinc-50 min-h-[50vh] flex flex-col justify-center align-middle lg:pl-8 gap-4">
+            <div class="text-lg lg:text-xl px-3 font-raleway">
+                <h2>Find QR codes with the EDC logo all over Campus. Login to the website, scan QR earn points and Exchange them during E-Summit for cash prizes, backstage photos and more.</h2>
+                <a href="{% url 'base:home' %}#learn-more" class="font-bold underline">Learn more</a>
+            </div>
+            
+            <div class="grid place-items-center">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'game:profile' %}" class="text-xl bg-gradient-to-r from-blue-400 to-purple-500 px-3 py-2 rounded font-bold uppercase">Go to Profile</a>
+                {% else %}
+                    <a href="{% provider_login_url 'google' %}" class="text-xl bg-gradient-to-r from-blue-400 to-purple-500 px-3 py-2 rounded font-bold uppercase">Sign In</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</header>
+<main class="">
+    <div class="min-h-screen bg-gradient-to-r from-slate-800 to-indigo-800">
+        <section id="learn-more" class="container min-h-screen py-16 px-3 grid lg:grid-cols-2 gap-4 mx-auto place-items-start h-fit my-auto">
+            <div class="lg:text-xl my-auto">
+                <h1 class="text-xl text-center font-bold uppercase lg:text-4xl">More about the Hunt</h1>
+                <h3 class="font-raleway">EDC has stuck QR codes with edc logo all over campus, find as many as you can and earn points. When the esummit starts, the top 5 participants can exchange the points for prizes or benefits. The rarer the sticker you find is the more points! More information on the rules is given below.</h3>
+            </div>
+            <div class="my-auto">
+                <h1 class="text-lg font-bold uppercase text-center lg:text-4xl">Rules</h1>
+                <ul class="flex flex-col gap-4 mt-3">
+                    <li class="font-raleway lg:text-lg">You can scan a QR only once, on scanning you get points according to the following criterias:</li>
+                    <li class="bg-gradient-to-r from-fuchsia-500 to-purple-500 px-3 py-2 border-white rounded-md border-2 ">
+                        1. If the QR you scanned has been scanned for the first time you get 50 points.
+                    </li>
+                    <li class="bg-gradient-to-r from-fuchsia-500 to-purple-500 px-3 py-2 border-white rounded-md border-2 ">
+                        2. If the QR you scanned has been scanned for less than equal to 5 times you get 15 points.
+                    </li>
+                    <li class="bg-gradient-to-r from-fuchsia-500 to-purple-500 px-3 py-2 border-white rounded-md border-2 ">
+                        3. If the QR you scanned has been scanned for more than 5 times you get 10 points.
+                    </li>
+                    <li class="bg-gradient-to-r from-fuchsia-500 to-purple-500 px-3 py-2 border-white rounded-md border-2 ">
+                        4. By sharing your invite code with friends on registering you and your friends get 10 points each for each new registration.
+                    </li>
+                </ul>
+            </div>
+    
+        </section>
+    </div>
+    
+</main>
+{% endblock %}

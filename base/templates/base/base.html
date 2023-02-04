@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EDC | {% block title %} {% endblock %}</title>
+    <link rel="shortcut icon" href="{% static 'base/images/favicon.ico' %}" type="image/x-icon">
+    <!-- Google font files -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,600;1,900&family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+    <!-- CSS files -->
+    <link rel="stylesheet" href="{% static 'base/css/tailwind.css' %}">
+    {% block head %}
+    {% endblock %}
+</head>
+{% include 'base/snippets/navbar.html' %}
+<body class="bg-zinc-800 w-full min-h-screen font-ubuntu-mono text-zinc-50 list-none" >
+        <ul class="container mx-auto flex flex-col gap-2 mt-16 absolute top-0 left-0 right-0 z-10" id="msg-element">
+        {% for message in messages %}
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                <li class="error">
+            {% endif %}
+
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+                <li class="info">
+            {% endif %}
+
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                <li class="success">
+            {% endif %}
+            <div class="text">
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                    &nbsp;Important:
+                {% endif %}
+                {{ message }}
+            </div>
+            <div class="my-auto grid place-items-center">
+                <button class="close-msg-btn" onclick="closeMsg(this)"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#fff" class="w-6 h-6 my-auto">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    </button>
+            </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% block content %}
+    {% endblock %}
+</body>
+<script src="{% static 'base/js/base.js' %}"></script>
+</html>
