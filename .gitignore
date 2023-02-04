@@ -1,0 +1,11 @@
+*.pyc
+*~
+env/
+db.sqlite3
+__pycache__/
+migrations/
+env/
+node_modules/
+*.crt
+*.key
+staticfiles/

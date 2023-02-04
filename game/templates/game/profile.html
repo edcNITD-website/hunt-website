@@ -1,0 +1,115 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title%}
+    Profile
+{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'game/css/profile.css' %}">
+{% endblock %}
+{% block content %}
+<section class="min-h-screen bg-gradient-to-br from-zinc-900 to-blue-900 w-full grid place-items-center">
+    <div class="grid place-items-center pt-16 w-full">
+        <div class="rounded-md w-full max-w-5xl flex flex-col justify-center px-3">
+            <div class="grid place-items-end py-4 rounded px-3 bg-center bg-cover bg-no-repeat origin-bottom w-full min-h-[300px] max-w-xl lg:max-w-screen-2xl mx-auto" style="background-image: linear-gradient(135deg, rgba(174, 23, 249, 0.604), rgba(0, 4, 22, 0.895)), url('{% static 'game/images/esummit-logo.png' %}');">
+                <div class="flex flex-row w-full justify-between align-bottom">
+                    <img src="{{profile_img}}" alt="google profile image" class="w-16 h-16 lg:w-24 lg:h-24 rounded-full border-2 border-zinc-50 relative bottom-0">
+                    <li class="list-none flex justify-end flex-col text-right">
+                        <h2 class="text-xl lg:text-4xl font-bold uppercase h-fit">{{gamer.user.first_name}}&nbsp;{{gamer.user.last_name}}</h2>
+                        <h3 class=" font-bold lowercase h-fit ">{{gamer.user.email}}</h3>
+                    </li>
+                </div>
+            </div>
+            <div class="my-4 uppercase grid grid-cols-2 lg:grid-cols-4 gap-4 special-grid ">
+                <div class="bg-gradient-to-br from-zinc-500 border-2 border-white to-slate-700 col-span-2 w-full max-w-xl px-3 mx-auto rounded grid grid-cols-2 place-items-center">
+                    <div class=" grid place-items-center rounded aspect-square">
+                        <div class="flex flex-col text-center justify-around h-full">
+                            <li>Points Scored</li>
+                            <li class="text-4xl font-bold ">{{gamer.get_total_points}}</li>
+                        </div>
+                    </div>
+    
+                    <div class=" grid place-items-center rounded aspect-square">
+                        <div class="flex flex-col text-center justify-around h-full">
+                            <li>Rank</li>
+                            <li class="text-4xl font-bold ">#{{rank}}/<span class="text-base">{{gamers_count}}</span></li>
+                        </div>
+                    </div>
+                    <div class="col-span-2 py-3">
+                        <a href="{% url 'game:leaderboard' %}" class="font-bold uppercase underline underline-offset-8 rounded">Visit leaderboard</a>
+                    </div>
+                </div>
+                
+                <div class="col-span-2 bg-gradient-to-br from-zinc-500 border-2 border-white to-slate-700 px-3 py-3 mx-auto w-full max-w-xl rounded flex flex-col justify-between">
+                    <table class="table-auto mx-auto">
+                        <tr class="grid grid-cols-2">
+                            <td class="font-bold">Phone</td>
+                            <td>{{gamer.phone}}</td>
+                        </tr>
+                        <tr class="grid grid-cols-2">
+                            <td class="font-bold">College</td>
+                            <td>{{gamer.college}}</td>
+                        </tr>
+                        <tr class="grid grid-cols-2">
+                            <td class="font-bold">Share Code</td>
+                            <td class="flex flex-row gap-3 justify-center align-middle">
+                                <h2 id="share-code">{{gamer.share_code}}</h2>
+                                <button class="cursor-pointer" onclick="copyToClipboard()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FFF" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184" />
+                                      </svg>
+                                      
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="flex flex-col align-middle w-full justify-center mt-2">
+                        <a href="{% url 'game:scanner' %}" class="font-bold uppercase text-xl underline mx-auto">Scan QR</a>
+                        {% if is_club_member %}
+                            <a href="{% url 'game:manage_qr' %}" class="font-bold uppercase text-xl underline mx-auto">Manage QRs</a>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="col-span-2 lg:col-span-4 bg-gradient-to-br from-zinc-500 border-2 border-white to-slate-700 px-3 py-3 mx-auto w-full rounded flex flex-col justify-between">
+                    <h2 class="text-center font-bold lg:text-2xl">Scans</h2>
+                    {% if scans %}
+                    <table class="table-auto mx-auto">
+                        <tr class="grid grid-cols-2 gap-3 font-bold tracking-widest">
+                            <td class="">Scan Location</td>
+                            <td>Points Given</td>
+                        </tr>
+                        {% for scan in scans %}
+                            <tr class="grid grid-cols-2 gap-3">
+                                <td class="">{{scan.get_qr_code.location}}</td>
+                                <td>{{scan.points_given}}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <!-- <div class="container mx-auto grid grid-cols-1 place-items-start">
+            <div class="bg-emerald-500 mx-auto w-fit p-6 text-5xl font-bold rounded-xl text-center">
+                <h3 class="text-lg uppercase">Points Scored</h3>
+                <h2>1000{{gamer.points}}</h2>
+                <h2 class="text-xl uppercase">Rank #{{rank}}</h2>
+            </div>
+            <div class="col-span-2 bg-zinc-400/40 px-4 py-2 w-full rounded">
+                <table class="table-auto">
+                    <tr class="grid grid-cols-2">
+                        <td>Name</td>
+                        <td>{{gamer.user.first_name}}&nbsp;{{gamer.user.last_name}}</td>
+                    </tr>
+                    <tr class="grid grid-cols-2">
+                        <td>Email</td>
+                        <td>{{gamer.user.email}}</td>
+                    </tr>
+                </table>
+            </div> -->
+        </div>
+    </div>
+    
+</section>
+<script src="{% static 'game/js/clipboard.js' %}"></script>
+{% endblock %}

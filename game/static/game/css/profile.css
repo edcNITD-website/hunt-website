@@ -1,0 +1,4 @@
+
+.special-grid{
+    grid-template-rows: auto auto 1fr !important;
+}

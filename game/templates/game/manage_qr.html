@@ -1,0 +1,67 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title%}
+Manage Qr
+{% endblock %}
+{% block head %}
+<!-- <link rel="stylesheet" href="{% static 'game/css/profile.css' %}"> -->
+{% endblock %}
+{% block content %}
+<section class="min-h-screen bg-gradient-to-br from-zinc-900 to-blue-900 w-full grid place-items-center">
+    <div class="grid place-items-center pt-16 w-full">
+        <div class="rounded-md w-full max-w-5xl flex flex-col justify-center px-3">
+            <div class="grid place-items-end py-4 rounded px-3 bg-center bg-cover bg-no-repeat origin-bottom w-full min-h-[80px] max-w-xl lg:max-w-screen-2xl mx-auto" style="background-image: linear-gradient(135deg, rgba(174, 23, 249, 0.604), rgba(0, 4, 22, 0.895)), url('{% static 'game/images/esummit-logo.png' %}');">
+                <div class="flex flex-row w-full justify-between align-bottom">
+                    <img src="{{profile_img}}" alt="google profile image" class="w-16 h-16 lg:w-20 lg:h-20 rounded-full border-2 border-zinc-50 relative bottom-0">
+                    <li class="list-none flex justify-end flex-col text-right">
+                        <h2 class="text-xl lg:text-4xl font-bold uppercase h-fit">{{gamer.user.first_name}}&nbsp;{{gamer.user.last_name}}</h2>
+                        <h3 class=" font-bold lowercase h-fit ">{{gamer.user.email}}</h3>
+                        <h3 class=" font-bold uppercase h-fit ">club member</h3>
+                    </li>
+                </div>
+            </div>
+            <div class="my-4 uppercase grid grid-cols-2 lg:grid-cols-4 gap-4 special-grid ">
+                <div class="col-span-2 lg:col-span-4 bg-gradient-to-br from-zinc-500 border-2 border-white to-slate-700 px-3 py-3 mx-auto w-full rounded flex flex-col justify-between">
+                    <h2 class="text-center font-bold lg:text-2xl">Manage QRs</h2>
+                    <a href="{% url 'game:add_qr' %}" class="ml-auto -mt-8 bg-zinc-900 rounded px-3 py-1">Add QR</a>
+                    {% if qr_scans %}
+                    <table class="table-auto mx-auto">
+                        <tr class="grid grid-cols-4 gap-3 font-bold tracking-widest">
+                            <td class="">QR Scan Location</td>
+                            <td>Sponsor</td>
+                            <td>QR_CODE</td>
+                            <td class="text-center">Actions</td>
+                        </tr>
+                        {% for scan in qr_scans %}
+                            <tr class="grid grid-cols-4 gap-3 my-2">
+                                <td class="">{{scan.location}}</td>
+                                <td>{{scan.sponsor}}</td>
+                                <td>{{scan.code}}</td>
+                                <td class="flex flex-row justify-around gap-2 ">
+                                    <a href="{% url 'game:delete_qr' scan.id %}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#fff" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                          </svg>
+                                          
+                                    </a>
+                                    <a href="{% url 'game:edit_qr' scan.id %}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#fff" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                                          </svg>
+                                    </a>
+                                    <a href="{% url 'game:qr_detail' scan.id %}">
+                                        <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mt-0" fill="#fff"><path d="m22 5c0-.478-.379-1-1-1h-18c-.62 0-1 .519-1 1v14c0 .621.52 1 1 1h18c.478 0 1-.379 1-1zm-6.5 13.5h-12v-10h12zm1.5 0v-10.5c0-.478-.379-1-1-1h-12.5v-1.5h17v13zm-6.518-4.943v1.243c0 .414.336.75.75.75.415 0 .75-.336.75-.75 0-.715 0-2.335 0-3.05 0-.414-.335-.75-.75-.75-.714 0-2.318 0-3.033 0-.414 0-.75.336-.75.75s.336.75.75.75h1.219l-3.198 3.198c-.293.293-.293.768 0 1.061.292.292.767.292 1.06 0z" fill-rule="nonzero"/></svg>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</section>
+<script src="{% static 'game/js/clipboard.js' %}"></script>
+{% endblock %}

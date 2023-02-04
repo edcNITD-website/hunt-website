@@ -1,0 +1,75 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title%}
+QR Detail View
+{% endblock %}
+{% block head %}
+<script type="text/javascript" src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+{% endblock %}
+{% block content %}
+<section class="min-h-screen bg-gradient-to-br from-zinc-900 to-blue-900 w-full grid place-items-center">
+    <div class="grid place-items-center pt-16 w-full">
+        <div class="rounded-md w-full max-w-5xl flex flex-col justify-center px-3">
+            <div class="grid place-items-end py-4 rounded px-3 bg-center bg-cover bg-no-repeat origin-bottom w-full min-h-[80px] max-w-xl lg:max-w-screen-2xl mx-auto" style="background-image: linear-gradient(135deg, rgba(174, 23, 249, 0.604), rgba(0, 4, 22, 0.895)), url('{% static 'game/images/esummit-logo.png' %}');">
+                <div class="flex flex-row w-full justify-between align-bottom">
+                    
+                    <li class="list-none flex justify-end flex-col text-right">
+                        <h2 class="text-xl lg:text-4xl font-bold uppercase h-fit">ESUMMIT <span class="font-normal text-xl">QR Detail</span></h2>
+                    </li>
+                </div>
+            </div>
+            <div class="my-4 uppercase grid grid-cols-2 lg:grid-cols-4 gap-4 special-grid ">
+                <div class="bg-gradient-to-br from-zinc-500 border-2 border-white to-slate-700 col-span-2 w-fit p-3 mx-auto rounded grid grid-cols-1 place-items-center">
+                    <h2 class="font-bold uppercase mb-3">Preview</h2>
+                    <div id="canvas" class="aspect-square mx-auto"></div>
+                    <button class="font-bold uppercase underline text-xl mt-3" onclick="downloadQR()">Download</button>
+                </div>
+                
+                <div class="col-span-2 bg-gradient-to-br from-zinc-500 border-2 border-white to-slate-700 px-3 py-3 mx-auto w-full max-w-xl rounded flex flex-col justify-between">
+                    <table class="table-auto mx-auto">
+                        <tr class="grid grid-cols-2">
+                            <td class="font-bold">Location</td>
+                            <td>{{scan.location}}</td>
+                        </tr>
+                        <tr class="grid grid-cols-2">
+                            <td class="font-bold">Sponsor</td>
+                            <td>{{scan.sponsor}}</td>
+                        </tr>
+                        <tr class="grid grid-cols-2">
+                            <td class="font-bold">QR Value</td>
+                            <td class="">
+                                <h2 id="qr-code">{{scan.code}}</h2>
+                            </td>
+                        </tr>
+                        <tr class="grid grid-cols-2">
+                            <td class="font-bold">Max Points</td>
+                            <td class="">
+                                <h2 id="share-code">{{scan.points_max}}</h2>
+                            </td>
+                        </tr>
+                        <tr class="grid grid-cols-2">
+                            <td class="font-bold">Mid Points</td>
+                            <td class="">
+                                <h2 id="share-code">{{scan.points_mid}}</h2>
+                            </td>
+                        </tr>
+                        <tr class="grid grid-cols-2">
+                            <td class="font-bold">Min Points</td>
+                            <td class="">
+                                <h2 id="share-code">{{scan.points_min}}</h2>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="flex flex-col align-middle w-full justify-center mt-2">
+                        {% if is_club_member %}
+                            <a href="{% url 'game:manage_qr' %}" class="font-bold uppercase text-xl underline mx-auto">Manage QRs</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</section>
+<script src="{% static 'game/js/qr-handler.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.nav-item{
+    @apply my-auto text-xl;
+}
+html{
+    scroll-behavior: smooth;
+}
+.error{
+    @apply bg-gradient-to-r from-orange-500 to-amber-500 text-white px-4 py-2 rounded flex flex-row justify-between align-middle;
+}
+.info{
+    @apply bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded flex flex-row justify-between align-middle;
+}
+.success{
+    @apply bg-gradient-to-r from-teal-500 to-emerald-500 text-white px-4 py-2 rounded flex flex-row justify-between align-middle;
+}
