@@ -13,13 +13,14 @@ The Hunt
     <div class="grid lg:grid-cols-2 place-items-center my-auto container mx-auto">
         <div class="grid grid-cols-1 mx-auto">
             <div class="w-fit">
-                <h1 class="text-5xl text-center lg:text-[140px] font-bold uppercase text-transparent bg-clip-text bg-gradient-to-br from-zinc-50 to-amber-400">The Hunt Begins in</h1>
+                <h1 class="text-5xl text-center lg:text-[140px] font-bold uppercase text-transparent bg-clip-text bg-gradient-to-br from-zinc-50 to-amber-400">{{msg}}</h1>
             </div>
-            <div class="grid grid-cols-2 lg:grid-cols-3 list-none text-center gap-2">
+            <div class="grid grid-cols-2 lg:grid-cols-3 list-none text-center gap-2" id="counter">
                 <li class="uppercase text-lg"><span id="days" class="text-xl lg:text-5xl font-bold">34</span>Days</li>
-                <li class="uppercase text-lg"><span id="days" class="text-xl lg:text-5xl font-bold">34</span>Hours</li>
-                <li class="uppercase text-lg col-span-2 lg:col-span-1"><span id="days" class="text-xl lg:text-5xl font-bold">34</span>Minutes</li>
-                <!-- <li class="uppercase text-lg"><span id="days" class="text-5xl font-bold">34</span>Seconds</li> -->
+                <li class="uppercase text-lg"><span id="hours" class="text-xl lg:text-5xl font-bold">34</span>Hours</li>
+                <li class="uppercase text-lg col-span-2 lg:col-span-1"><span id="mins" class="text-xl lg:text-5xl font-bold">34</span>Minutes</li>
+                <li class="hidden " id="time_diff">{{time_diff}}</li>
+                <li class="uppercase text-lg hidden"><span id="seconds" class="text-5xl font-bold">34</span>Seconds</li>
             </div>
         </div>
         <div class="lg:border-l-8 lg:border-zinc-50 min-h-[50vh] flex flex-col justify-center align-middle lg:pl-8 gap-4">
@@ -29,10 +30,14 @@ The Hunt
             </div>
             
             <div class="grid place-items-center">
+                {% if not has_ended %}
                 {% if user.is_authenticated %}
                     <a href="{% url 'game:profile' %}" class="text-xl bg-gradient-to-r from-blue-400 to-purple-500 px-3 py-2 rounded font-bold uppercase">Go to Profile</a>
                 {% else %}
                     <a href="{% provider_login_url 'google' %}" class="text-xl bg-gradient-to-r from-blue-400 to-purple-500 px-3 py-2 rounded font-bold uppercase">Sign In</a>
+                {% endif %}
+                {% else %}
+                <a href="{% url 'game:leaderboard' %}" class="text-xl bg-gradient-to-r from-blue-400 to-purple-500 px-3 py-2 rounded font-bold uppercase">Leaderboard</a>
                 {% endif %}
             </div>
         </div>
@@ -68,4 +73,5 @@ The Hunt
     </div>
     
 </main>
+<script src="{% static 'base/js/countdown.js' %}"></script>
 {% endblock %}

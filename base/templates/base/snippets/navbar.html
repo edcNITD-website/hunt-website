@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="{% static 'base/css/tailwind.css' %}">
 <nav class="fixed top-0 left-0 h-[8vh] w-full z-50 " id="navbar">
   <ul class="flex flex-row justify-between container max-w-screen-xl mx-auto my-auto h-full items-center font-semibold uppercase tracking-wider px-3">
-    <li class="w-8 h-8"><img src="{% static 'base/images/favicon.ico' %}" alt="edc logo" class="object-contain relative left-0 my-auto"></li>
+    <li class="w-8 h-8"><img src="{% static 'base/images/favicon_dark.ico' %}" alt="edc logo" class="object-contain relative left-0 my-auto" id="edc-icon"></li>
     <li class="hidden lg:block my-auto">
       <ul class="flex flex-row gap-6 ">
         <li><a href="{% url 'base:home' %}" class="nav-item">Home</a></li>
@@ -13,7 +13,9 @@
           <li><a href="{% url 'game:profile' %}" class="nav-item">Profile</a></li>
           <li><a href="{% url 'account_logout' %}" class="px-3  bg-gradient-to-r from-blue-400 to-purple-500 nav-item rounded py-1">Logout</a></li>
         {% else %}
-          <li><a href="{% provider_login_url 'google' %}" class="px-3  bg-gradient-to-r from-blue-400 to-purple-500 nav-item rounded py-1">Sign In</a></li>
+          {% if not has_ended %}
+          <li><a href="{% provider_login_url 'google' %}" class="px-3  bg-gradient-to-r from-blue-400 to-purple-500 nav-item rounded py-1">Login</a></li>
+          {% endif %}
         {% endif %}
       </ul>
     </li>
@@ -34,8 +36,10 @@
         <li><a href="{% url 'game:profile' %}" class="px-3 hover:bg-stone-700 py-2 rounded">Profile</a></li>
         <li><a href="{% url 'account_logout' %}" class="px-3 hover:bg-stone-700 py-2 rounded">Logout</a></li>
       {% else %}
+        {% if not has_ended %}
         <li><a href="#" class="px-3 hover:bg-stone-700 py-2 rounded">Register</a></li>
         <li><a href="{% provider_login_url 'google' %}" class="px-3 hover:bg-stone-700 py-2 rounded">Login</a></li>
+        {% endif %}
       {% endif %}
     </ul>
   </nav>

@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EDC | {% block title %} {% endblock %}</title>
-    <link rel="shortcut icon" href="{% static 'base/images/favicon.ico' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'base/images/favicon.ico' %}" type="image/x-icon" id="faviconTag">
     <!-- Google font files -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,7 +19,7 @@
 </head>
 {% include 'base/snippets/navbar.html' %}
 <body class="bg-zinc-800 w-full min-h-screen font-ubuntu-mono text-zinc-50 list-none" >
-        <ul class="container mx-auto flex flex-col gap-2 mt-16 absolute top-0 left-0 right-0 z-10" id="msg-element">
+        <ul class="container mx-auto flex flex-col gap-2 mt-16 absolute px-3 top-0 left-0 right-0 z-10" id="msg-element">
         {% for message in messages %}
             {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
                 <li class="error">
