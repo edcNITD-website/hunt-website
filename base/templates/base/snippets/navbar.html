@@ -7,7 +7,7 @@
     <li class="hidden lg:block my-auto">
       <ul class="flex flex-row gap-6 ">
         <li><a href="{% url 'base:home' %}" class="nav-item">Home</a></li>
-        <li><a href="#" class="nav-item">EDC</a></li>
+        <li><a href="https://edcnitd.co.in" class="nav-item">EDC</a></li>
         <li><a href="{% url 'game:leaderboard' %}" class="nav-item">Leaderboard</a></li>
         {% if user.is_authenticated %}
           <li><a href="{% url 'game:profile' %}" class="nav-item">Profile</a></li>
@@ -30,7 +30,7 @@
   <nav id="mobile-menu" class="hidden flex-col justify-center bg-stone-900 min-h-[95vh]">
     <ul class="flex flex-col justify-center text-center gap-6">
       <li><a href="{% url 'base:home' %}" class=" px-3 hover:bg-stone-700 py-2 rounded"onclick="toggleMenu()">Home</a></li>
-      <li><a href="#" class="px-3 hover:bg-stone-700 py-2 rounded">EDC</a></li>
+      <li><a href="https://edcnitd.co.in" class="px-3 hover:bg-stone-700 py-2 rounded">EDC</a></li>
       <li><a href="{% url 'game:leaderboard' %}" class="px-3 hover:bg-stone-700 py-2 rounded" onclick="toggleMenu()">Leaderboard</a></li>
       {% if user.is_authenticated %}
         <li><a href="{% url 'game:profile' %}" class="px-3 hover:bg-stone-700 py-2 rounded">Profile</a></li>
