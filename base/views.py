@@ -24,5 +24,5 @@ def home(request):
     context['msg'] = msg
     context['time_diff'] = int(time_diff)
     context['has_ended'] = end
-    print(context)
+    # print(context)
     return render(request,'base/home.html',context)
