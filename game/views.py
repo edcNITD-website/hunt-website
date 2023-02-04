@@ -38,11 +38,11 @@ def get_total_points(gamer):
     for scan in scans_list:
         qr_points+=scan.points_given
     total_points = gamer.points + qr_points
-    print(gamer.points,qr_points)
+    # print(gamer.points,qr_points)
     return total_points
 
 def get_key(gamer):
-    print(gamer['get_total_points'])
+    # print(gamer['get_total_points'])
     return int(gamer['get_total_points'])
 
 def order_by_points():
@@ -64,9 +64,9 @@ def order_by_points():
         new_gamer['get_total_points'] = gamer.get_total_points
         new_gamer['share_code'] = gamer.share_code
         gamers_list.append(new_gamer)
-    print(gamers_list)
+    # print(gamers_list)
     gamers_list.sort(key=get_key,reverse=True)
-    print(gamers_list)
+    # print(gamers_list)
     return gamers_list
 
 def get_rank(request):
@@ -197,6 +197,10 @@ def scanner(request):
                     qr_scan.save()
                     messages.success(request,"Congrats you succesfully scanned the QR. The QR was scanned for the "+str(qr_scan.count)+" time(s), so you get "+str(successfull_scan.points_given) +" points!")
                     return redirect('/game/profile')
+            
+            else:
+                messages.error(request,"The qr you scanned isn't working or is incorrect please scan correctly.")
+                return redirect('/game/profile')
     return render(request,'game/scanner.html',context)
 
 @login_required
